@@ -1,0 +1,71 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/goods-list/index",
+    "pages/examples/index",
+    "pages/user-center/index",
+    "pages/exampleDetail/index",
+    "pages/deployService/index",
+    "pages/updateRecord/index",
+    "pages/updateRecordResult/index",
+    "pages/updateRecordSuccess/index",
+    "pages/sumRecord/index",
+    "pages/sumRecordResult/index",
+    "pages/web/index",
+    "pages/cloudbaseModuleDetail/index",
+    "pages/cloudbaseModuleInstallTips/index",
+    "pages/cloudbaseModuleGuide/index",
+    "pages/business/index",
+    "pages/chat/index",
+    "pages/discovery/index",
+    "pages/self/index",
+    "pages/answer/index",
+    "pages/question/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#146E3C",
+    "navigationBarTitleText": "深圳中学校园智能实践平台",
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh":true
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "color": "#A2A9B0",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/discovery/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/discovery.png",
+        "selectedIconPath": "images/tabbar/discovery_focus.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "问题搜索",
+        "iconPath": "images/tabbar/index.png",
+        "selectedIconPath": "images/tabbar/index_focus.png"
+      },
+      {
+        "pagePath": "pages/chat/index",
+        "text": "大模型提问",
+        "iconPath": "images/tabbar/chat.png",
+        "selectedIconPath": "images/tabbar/chat_focus.png"
+      },
+      {
+        "pagePath": "pages/self/index",
+        "text": "我",
+        "iconPath": "images/tabbar/burger.png",
+        "selectedIconPath": "images/tabbar/burger_focus.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
