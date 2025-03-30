@@ -148,3 +148,43 @@
     font-size: 14rpx;
     color: #bebebe;
 }
+
+/* 富文本容器样式 */
+.rich-text-container {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    width: 630rpx;
+    color: #333;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 段落样式 */
+.rich-text-container p {
+    margin-bottom: 15px;
+}
+
+/* 粗体文本样式 */
+.rich-text-container strong {
+    font-weight: bold;
+    color: #222;
+}
+
+/* 红色文本样式 */
+.rich-text-container span[style*="color: red"] {
+    color: red;
+}
+
+/* 图片样式 */
+.rich-text-container img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}    

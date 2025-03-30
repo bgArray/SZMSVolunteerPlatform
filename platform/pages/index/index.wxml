@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <!-- 搜索框等内容 -->
   <view class="search flex-wrp">
       <view class="search-left flex-item">
           <image src="../../images/search.png"></image>
@@ -10,41 +11,46 @@
       </view>
   </view>
 
-    <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-        <view class="feed-item">
-            <view class="feed-source">
-                <a class="">
-                    <view class="avatar">
-                        <image src="{{item.feed_source_img}}"></image>
-                    </view>
-                    <text>{{item.feed_source_name}}{{item.feed_source_txt}}</text>
-                </a>
-                <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
-            </view>
-            <view class="feed-content">
-                <view class="question" qid="{{question_id}}" bindtap="bindQueTap">
-                    <a class="question-link">
-                        <text>{{item.question}}</text>
-                    </a>
-                </view>
-                <view class="answer-body">
-                    <view bindtap="bindItemTap">
-                        <text class="answer-txt" aid="{{answer_id}}">{{item.answer_ctnt}}</text>
-                    </view>
-                    <view class="answer-actions" bindtap="bindItemTap">
-                        <view class="like dot">
-                            <a>{{item.good_num}} 赞同 </a>
-                        </view>
-                        <view class="comments dot">
-                            <a>{{item.comment_num}} 评论 </a>
-                        </view>
-                        <view class="follow-it">
-                            <a>关注问题</a>
-                        </view>
-                    </view>
-                </view>
-            </view>
+  <!-- 显示搜索结果 -->
+  <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <view class="feed-item" bindtap="onTagClick" data-answer-id="{{item.answer_id}}" data-idx="{{idx}}">
+      <!-- 标签页内容 -->
+      <view class="feed-source">
+        <a class="">
+          <view class="avatar">
+            <image src="{{item.feed_source_img}}"></image>
+          </view>
+          <text>{{item.feed_source_name}}{{item.feed_source_txt}}</text>
+        </a>
+        <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
+      </view>
+      <view class="feed-content">
+        <view class="question" qid="{{item.question_id}}" bindtap="bindQueTap">
+          <a class="question-link">
+            <text>{{item.question}}</text>
+          </a>
         </view>
-    </block>
+        <view class="answer-body">
+          <view data-item="{{item.answer_id}}" bindtap="bindItemTap">
+            <text class="answer-txt" aid="{{item.answer_id}}">{{item.answer_ctnt}}</text>
+          </view>
+          <view class="answer-actions" bindtap="bindItemTap">
+            <view class="like dot">
+              <a>{{item.good_num}} 赞同 </a>
+            </view>
+            <view class="comments dot">
+              <a>{{item.comment_num}} 评论 </a>
+            </view>
+            <view class="follow-it">
+              <a>关注问题</a>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 搜索结果为空时的提示 -->
+  <view wx:if="{{feed_length === 0 && keyword!== ''}}" class="no-result">
+    <text>未找到相关结果</text>
+  </view>
 </scroll-view>
-

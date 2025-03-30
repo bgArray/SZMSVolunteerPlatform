@@ -15,7 +15,8 @@ const sumRecord = require('./sumRecord/index');
 const fetchGoodsList = require('./fetchGoodsList/index');
 const genMpQrcode = require('./genMpQrcode/index');
 const login = require('./login/index');
-const searcher = require('./searcher');
+const searcher = require('./searcher/index');
+const getAnswerPage = require('./getAnswerPage/index');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -40,6 +41,8 @@ exports.main = async (event, context) => {
       return await login.main(event, context);
     case 'searcher':
       return await searcher.main(event, context);
+    case 'getAnswerPage':
+      return await getAnswerPage.main(event, context);
   }
 };
         

@@ -11,10 +11,13 @@ Page({
     isLoading: false
   },
   //事件处理函数
-  bindItemTap: function() {
+  bindItemTap: function(e) {
+    const item = e.currentTarget.dataset.item;
+    // 根据需求修改跳转的页面和传递的参数
+    console.log(encodeURIComponent(item));
     wx.navigateTo({
-      url: '../answer/index'
-    })
+      url: `../answer/index?id=${encodeURIComponent(item)}`
+    });
     console.log("tab")
   },
   bindQueTap: function() {
@@ -43,31 +46,40 @@ Page({
           keyword: keyword
         },
         success: res => {
-            console.log(res.result.dataList);
-            if (res.result.dataList.length === 0) {
-                console.log("not found");
-            } else {
-                console.log("end search; search result:");
-                // 遍历并输出每一项
-                res.result.dataList.forEach((item, index) => {
-                    console.log(`Item ${index + 1}:`, item);
-                });
-            }
+          console.log(res.result.dataList);
+          if (res.result.dataList.length === 0) {
+            console.log("not found");
             this.setData({
-                isLoading: false
+              feed: [],
+              feed_length: 0,
+              isLoading: false
             });
+          } else {
+            // 处理搜索结果，将每条结果添加到 feed 数组中
+            const feed_new = [];
+            res.result.dataList.forEach((item) => {
+              if (item.data && item.data.length > 0) {
+                feed_new.push(item.data[0]);
+              }
+            });
+            this.setData({
+              searchResults: res.result.dataList,
+              feed: feed_new,
+              feed_length: feed_new.length,
+              isLoading: false
+            });
+            console.log("end search; search result:");
+            console.log(feed_new);
+            this.refresh_search();
+          }
         },
         fail: err => {
           console.error('搜索失败：', err);
           this.setData({ isLoading: false });
         }
       });
-    }},
-
-
-
-
-
+    }
+  },
 
   onLoad: function () {
     console.log('onLoad')
@@ -87,25 +99,9 @@ Page({
     setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
     console.log("lower")
   },
-  //scroll: function (e) {
-  //  console.log("scroll")
-  //},
 
-  //网络请求数据, 实现首页刷新
-  refresh0: function(){
-    var index_api = '';
-    util.getData(index_api)
-        .then(function(data){
-          //this.setData({
-          //
-          //});
-          console.log(data);
-        });
-  },
-
-  //使用本地 fake 数据实现刷新效果
   getData: function(){
-    var feed = util.getData2();
+    var feed = this.data.feed;
     console.log("loaddata");
     var feed_data = feed.data;
     this.setData({
@@ -119,11 +115,11 @@ Page({
       icon: 'loading',
       duration: 3000
     });
-    var feed = util.getData2();
+    var feed = this.data.feed;
     console.log("loaddata");
     var feed_data = feed.data;
     this.setData({
-      feed:feed_data,
+      feed: feed_data,
       feed_length: feed_data.length
     });
     setTimeout(function(){
@@ -133,17 +129,31 @@ Page({
         duration: 2000
       })
     },3000)
-
+  },
+  refresh_search: function(){
+    var feed = this.data.feed;
+    console.log("loaddata");
+    var feed_data = feed;
+    this.setData({
+      feed: feed_data,
+      feed_length: feed_data.length
+    });
+    setTimeout(function(){
+      wx.showToast({
+        title: '刷新成功',
+        icon: 'success',
+        duration: 2000
+      })
+    },3000)
   },
 
-  //使用本地 fake 数据实现继续加载效果
   nextLoad: function(){
     wx.showToast({
       title: '加载中',
       icon: 'loading',
       duration: 4000
     })
-    var next = util.getNext();
+    var next = this.data.feed;
     console.log("continueload");
     var next_data = next.data;
     this.setData({
@@ -157,7 +167,17 @@ Page({
         duration: 2000
       })
     },3000)
+  },
+
+  goToDetailPage: function(e) {
+    const item = this.data.feed[e.currentTarget.dataset.idx];
+    const id = item.answer_id;
+    console.log("id:");
+    console.log(id);
+    // 根据需求修改跳转的页面和传递的参数
+    console.log(encodeURIComponent(question));
+    wx.navigateTo({
+      url: `../answer/index?id=${id}`
+    });
   }
-
-
 })
