@@ -18,7 +18,13 @@ exports.main = async (event, context) => {
             })
           },
           {
-            "data.answer_ctnt": db.RegExp({
+            "data.answer": db.RegExp({
+              regexp: regex1.source,
+              options: 'i'
+            })
+          },
+          {
+            "data.question": db.RegExp({
               regexp: regex1.source,
               options: 'i'
             })

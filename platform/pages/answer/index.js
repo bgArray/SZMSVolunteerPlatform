@@ -61,7 +61,7 @@ Page({
     // 这里可以使用 wx.request 或 wx.cloud.callFunction 从服务器获取数据
     // 以下是模拟数据
     // var mockRichText = '<p>这是一段 <strong>粗体</strong> 文字，还有 <span style="color: red;">红色</span> 文字。</p><img src="../../images/1444983318907-_DSC1826.jpg" />';
-    var mockRichText = this.data.result[0].data[0].answer_ctnt;
+    var mockRichText = this.data.result[0].data[0].answer;
     console.log(mockRichText)
     this.setData({
       content: mockRichText
